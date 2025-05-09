@@ -1,156 +1,150 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lời Mời Đặc Biệt</title>
+    <title>Elegant Envelope</title>
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
             background: #f5f0eb;
             margin: 0;
             font-family: 'Playfair Display', serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            animation: fadeIn 1s ease-in;
         }
 
-        .invitation-card {
-            background: #f8f0e6;
-            max-width: 600px;
-            padding: 3rem;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        .envelope-container {
             position: relative;
-            border: 2px solid #e0d4c5;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .main-title {
-            font-size: 2.5em;
-            color: #635147;
-            margin: 0 0 1rem;
-            letter-spacing: 0.05em;
-        }
-
-        .interactive-sections {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin: 3rem 0;
-        }
-
-        .section-item {
-            padding: 1.5rem;
-            background: rgba(176, 140, 95, 0.1);
-            border-radius: 15px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            min-height: 150px;
+            transition: transform 0.3s ease;
+            perspective: 1000px;
         }
 
-        .section-item:hover {
-            transform: translateY(-5px);
+        .envelope-container:hover {
+            transform: translateY(-10px) scale(1.02);
         }
 
-        .section-emoji {
-            font-size: 2.5em;
-            margin-bottom: 1rem;
+        .envelope {
+            width: 400px;
+            height: 280px;
+            background: #f8f0e6; /* Darker ivory color */
+            position: relative;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: visible;
         }
 
-        .hidden-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 400px;
+            height: 120px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: 50% 0%;
+            z-index: 2;
+        }
+
+        .envelope-flap::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-top: 120px solid #f0e0d2; /* Darker flap color */
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+        }
+
+        .envelope-container:hover .envelope-flap {
+            transform: rotateX(-180deg);
+        }
+
+        .wax-seal {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: #b08c5f; /* Darker wax color */
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 3;
+            transition: all 0.4s ease;
+            opacity: 0.8;
+        }
+
+        .envelope-container:hover .wax-seal {
             opacity: 0;
-            color: #635147;
+        }
+
+        .wax-seal:after {
+            content: "✉";
+            position: absolute;
+            font-size: 24px;
+            color: #fff;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .sender-text {
+            position: absolute;
+            bottom: 80px;
+            left: 30px;
             font-family: 'Dancing Script', cursive;
-            font-size: 1.2em;
-            line-height: 1.6;
+            font-size: 1.8em;
+            color: #635147; /* Darker text color */
+            z-index: 1;
         }
 
-        .hidden-content.visible {
-            max-height: 500px;
-            opacity: 1;
-            padding: 1rem 0;
+        .liner-pattern {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(0,0,0,0.08),
+                rgba(0,0,0,0.08) 4px,
+                transparent 4px,
+                transparent 8px
+            );
         }
 
-        strong {
-            color: #b08c5f;
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (max-width: 768px) {
-            .interactive-sections {
-                grid-template-columns: 1fr;
-            }
+        .envelope-container {
+            animation: float 3s ease-in-out infinite;
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="invitation-card">
-        <div class="header">
-            <h1 class="main-title">Gửi Bảo Anh</h1>
+    <div class="envelope-container" onclick="window.location.href='invitation.html'">
+        <div class="envelope-flap">
+            <div class="wax-seal"></div>
         </div>
-
-        <div class="interactive-sections">
-            <!-- Section 1 - 😋 -->
-            <div class="section-item" onclick="toggleContent('section1')">
-                <div class="section-emoji">😋</div>
-                <div class="hidden-content" id="section1">
-                    Cảm ơn cậu vì đã dành thời gian cho tớ
-                </div>
-            </div>
-
-            <!-- Section 2 - 🕰️ (Improved Layout) -->
-            <div class="section-item" onclick="toggleContent('section2')">
-                <div class="section-emoji">🕰️</div>
-                <div class="hidden-content" id="section2">
-                    🗓️ <strong>Chủ nhật 11/5</strong><br>
-                    🏬 <strong>Địa điểm:</strong> Aeon Mall Hà Đông<br>
-                    🎬 <strong>Phim:</strong> THÁM TỬ KIÊN: KỲ ÁN KHÔNG ĐẦU<br>
-                    🕔 <strong>Suất chiếu:</strong> 17:30<br>
-                    🚗 <strong>Đón lúc 16:40</strong> tại địa chỉ cậu đã gửi tớ
-                </div>
-            </div>
-
-            <!-- Section 3 - 😇 -->
-            <div class="section-item" onclick="toggleContent('section3')">
-                <div class="section-emoji">😇</div>
-                <div class="hidden-content" id="section3">
-                    Hi vọng chúng mình sẽ có những trải nghiệm thật vui vẻ
-                </div>
-            </div>
+        <div class="envelope">
+            <div class="liner-pattern"></div>
+            <div class="sender-text">From Nghia Minh</div>
         </div>
     </div>
 
     <script>
-        function toggleContent(sectionId) {
-            const content = document.getElementById(sectionId);
-            const allContents = document.querySelectorAll('.hidden-content');
-            
-            // Close all other sections
-            allContents.forEach(c => {
-                if(c.id !== sectionId && c.classList.contains('visible')) {
-                    c.classList.remove('visible');
-                }
-            });
-            
-            // Toggle current section
-            content.classList.toggle('visible');
-        }
+        document.querySelector('.envelope-container').addEventListener('click', function() {
+            this.style.animation = 'none';
+            setTimeout(() => {
+                window.location.href = 'invitation.html';
+            }, 400);
+        });
     </script>
 </body>
 </html>
